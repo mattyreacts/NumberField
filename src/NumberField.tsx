@@ -1,7 +1,7 @@
 import { FilledTextFieldProps, OutlinedTextFieldProps, StandardTextFieldProps, TextFieldVariants } from "@mui/material";
 import * as React from "react";
 import { useCallback } from "react";
-import { TextField } from '@mui/material';
+import { TextField } from "@mui/material";
 
 interface NumberFieldBaseProps {
     /**
@@ -39,10 +39,12 @@ type NumberFieldProps<Variant extends TextFieldVariants = TextFieldVariants> =
       ? StandardNumberFieldProps
       : OutlinedNumberFieldProps;
 
-function NumberField({allowDecimal = true, min, max, maxDp, ...props}: NumberFieldProps, ref: React.ForwardedRef<HTMLInputElement>): React.JSX.Element {
+function NumberField(
+    {allowDecimal = true, min, max, maxDp, ...props}: NumberFieldProps/*, 
+    ref: React.ForwardedRef<HTMLInputElement>*/): React.JSX.Element {
     const handleTextChange = useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
         const value: string = event.target.value;
-        if(value === "" || (allowDecimal && value.endsWith(".") && (value.match(/\./g) || []).length <= 1)) {
+        if(value === "" || value === "-" || (allowDecimal && value.endsWith(".") && (value.match(/\./g) || []).length <= 1)) {
             if(typeof props.onChange === 'function')
                 props.onChange(event);
             return;
@@ -70,7 +72,7 @@ function NumberField({allowDecimal = true, min, max, maxDp, ...props}: NumberFie
         if(!isNaN(n) && !allowDecimal)
             event.target.value = n.toString();
         else
-            event.target.value = event.target.value.replace(/[^0-9.]+/g,'');
+            event.target.value = event.target.value.replace(/[^0-9.-]+/g,'');
         if(typeof props.onChange === 'function')
             props.onChange(event);
     }, [props.onChange, allowDecimal, min, max]);
@@ -79,9 +81,8 @@ function NumberField({allowDecimal = true, min, max, maxDp, ...props}: NumberFie
         <TextField 
             {...props} 
             onChange={handleTextChange}
-            ref={ref}
         />
     )
 }
 
-export default React.forwardRef(NumberField);
+export default React.memo(NumberField);

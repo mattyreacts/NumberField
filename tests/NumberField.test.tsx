@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import NumberField from "../src";
+import NumberField from '../src';
 import React from 'react';
 
 function textChange(input: string, output: string) {
@@ -43,6 +43,14 @@ describe('Valid Inputs', () => {
 
     test('allow zero padding after decimal', () => {
         textChange('1.000', '1.000');
+    });
+
+    test('negative symbol only', () => {
+        textChange('-', '-');
+    });
+
+    test('negative number', () => {
+        textChange('-1', '-1');
     });
 });
 
