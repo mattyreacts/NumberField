@@ -23,7 +23,7 @@ See [MUI TextField API](https://mui.com/material-ui/api/text-field/) for TextFie
 import * as React from "react";
 import { useCallback, useState } from "react";
 import NumberField from "@mattyreacts/numberfield";
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography, InputAdornment } from "@mui/material";
 
 function PriceInput(): React.JSX.Element {
     const [price, setPrice] = useState<string>('');

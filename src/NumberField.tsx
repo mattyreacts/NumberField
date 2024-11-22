@@ -40,13 +40,13 @@ type NumberFieldProps<Variant extends TextFieldVariants = TextFieldVariants> =
       : OutlinedNumberFieldProps;
 
 function NumberField(
-    {allowDecimal = true, min, max, maxDp, ...props}: NumberFieldProps/*, 
-    ref: React.ForwardedRef<HTMLInputElement>*/): React.JSX.Element {
+    {allowDecimal = true, min, max, maxDp, onChange, ...props}: NumberFieldProps, 
+    ref: React.ForwardedRef<HTMLInputElement>): React.JSX.Element {
     const handleTextChange = useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
         const value: string = event.target.value;
         if(value === "" || value === "-" || (allowDecimal && value.endsWith(".") && (value.match(/\./g) || []).length <= 1)) {
-            if(typeof props.onChange === 'function')
-                props.onChange(event);
+            if(typeof onChange === 'function')
+                onChange(event);
             return;
         }
         let n: number = 0;
@@ -73,16 +73,17 @@ function NumberField(
             event.target.value = n.toString();
         else
             event.target.value = event.target.value.replace(/[^0-9.-]+/g,'');
-        if(typeof props.onChange === 'function')
-            props.onChange(event);
-    }, [props.onChange, allowDecimal, min, max]);
+        if(typeof onChange === 'function')
+            onChange(event);
+    }, [onChange, allowDecimal, min, max]);
 
     return (
         <TextField 
             {...props} 
             onChange={handleTextChange}
+            inputRef={ref}
         />
-    )
+    );
 }
 
-export default React.memo(NumberField);
+export default React.memo(React.forwardRef(NumberField));
