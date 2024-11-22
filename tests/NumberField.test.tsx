@@ -148,4 +148,22 @@ describe('Invalid Inputs', () => {
         expect(onChange).toHaveBeenCalledTimes(1);
         expect(text).toBe('7.12');
     });
+
+    test('Max dp exceeded rounding up', () => {
+        let text = '';
+
+        const onChange = jest.fn((event: React.ChangeEvent<HTMLInputElement>) => {
+            text = event.target.value;
+        });
+        render(
+            <NumberField data-testid="field" onChange={onChange} maxDp={2} />
+        );
+
+        const input = screen.getByTestId(/field/i)?.querySelector('input') as HTMLElement;
+
+        fireEvent.change(input, { target: { value: '7.5489' } });
+
+        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(text).toBe('7.54');
+    });
 });

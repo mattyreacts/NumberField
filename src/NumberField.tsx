@@ -65,7 +65,7 @@ function NumberField(
         }
         if(typeof maxDp === 'number') {
             const multipler = Math.pow(10, maxDp);
-            const compare = Math.round(n * multipler) / multipler;
+            const compare = Math.floor(n * multipler) / multipler;
             if(n > compare)
                 event.target.value = compare.toFixed(maxDp);
         }
