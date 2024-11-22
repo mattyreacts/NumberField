@@ -15,7 +15,7 @@ See [MUI TextField API](https://mui.com/material-ui/api/text-field/) for TextFie
 |---------------|-----------|---------|----------------------------------------------------------------------|
 | allowDecimal? | `boolean` | true    | If True then the user can input numbers with decimal places after.   |
 | min?          | `number`  | -       | If set then any number below this minimum will be ignored            |
-| max?          | `number`  | -       | The value of the field                                               |
+| max?          | `number`  | -       | If set then any number greater than this will be ignored             |
 | maxDp?        | `number`  | -       | The maximum number of decimal places to allow                        |
 
 ## Example

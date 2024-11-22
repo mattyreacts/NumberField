@@ -1,6 +1,6 @@
 {
   "name": "@mattyreacts/numberfield",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A number text field based on @mui/material/TextField that only allows valid numbers as input",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
